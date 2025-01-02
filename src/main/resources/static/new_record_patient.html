@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Telemed App</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="styles/style.css">
+  <link rel="shortcut icon" type="image/x-icon" href="images/telemedicon.png" />
+
+  <style>
+    /* Header style */
+        .header {
+            display: flex;
+            justify-content: space-between; /* Razmak između elemenata */
+            align-items: center;
+            padding: 10px 20px;
+            background-color: #ffffff;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .header .user-card {
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            margin-left: auto; /* Pomaknite korisničku karticu na desnu stranu */
+        }
+
+        .header .user-card img {
+            height: 40px;
+            border-radius: 50%;
+        }
+
+        /* Dropdown menu styling */
+        .user-card-menu {
+            display: none;
+            position: absolute;
+            right: 0;
+            top: 100%;
+            background-color: #ffffff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            border-radius: 5px;
+            padding: 10px;
+            z-index: 1000;
+        }
+
+        .user-card:hover .user-card-menu {
+            display: block;
+        }
+
+        .user-card-menu a {
+            text-decoration: none;
+            color: black;  /* Promijenili smo boju u crnu */
+            font-size: 16px;
+            padding: 5px;
+            display: block;
+        }
+
+        .user-card-menu a:hover {
+            background-color: #f1f1f1;
+        }
+
+    /* Sidebar style */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100%;
+            background-color: #f8f9fa;
+            width: 250px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .sidebar h3 {
+            margin-top: 0;
+        }
+
+        .sidebar nav button {
+            background-color: #007bff;
+            color: white;
+            font-weight: bold;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            font-size: 16px;
+            text-align: left;
+            width: 100%;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            margin-top: 10px;
+        }
+
+        .sidebar nav button:hover {
+            background-color: #0056b3;
+            transform: scale(1.05);
+        }
+  </style>
+
+</head>
+
+<body>
+
+<!-- Header -->
+<div class="header">
+  <div class="user-card" onclick="toggleUserMenu()">
+    <span>Ivo Ivić</span>
+    <img src="/images/user.png" alt="User">
+    <div id="user-card-menu" class="user-card-menu">
+      <a href="/logout">Odjava</a>
+    </div>
+  </div>
+</div>
+<!-- Sidebar -->
+<div class="sidebar">
+  <h3><img src="/images/telemed.png" width="230" height="80" alt="Logo"></h3>
+  <nav class="flex-grow-1 d-flex flex-column">
+    <button class="btn" onclick="location.href = '/patientRecords'">Svi zapisi</button>
+  </nav>
+</div>
+
+  <!-- Main Content -->
+  <div class="main-content">
+    <h2 class="mt-4">Novi zapis</h2> <br>
+    <div class="row">
+      <div class="col-6">
+        <form action="/addNewStatus">
+          <div class="form-group pt-2">
+            <div>
+              <label for="tlak1">Sistolički tlak</label><br>
+              <input class="form-control mb-3 js-st" type="number" id="tlak1" placeholder="Unesite samo broj npr. 128" name="systolic">
+            </div>
+            <div>
+              <label for="tlak2">Dijastolički tlak</label><br>
+              <input class="form-control mb-3 js-dt" type="number" id="tlak2" placeholder="Unesite samo broj npr. 86" name="diastolic">
+            </div>
+            <div>
+              <label for="puls">Puls</label><br>
+              <input class="form-control mb-3 js-puls" type="number" id="puls" placeholder="Unesite samo broj npr. 70" name="pulse">
+            </div>
+            <div>
+              <label for="opis">Opis stanja</label><br>
+              <textarea class="form-control mb-3 js-opis" style="height: 90px;" type="text" id="opis" placeholder="Opišite kako se osjećate.." name="comment"></textarea>
+            </div>
+            <div>
+              <label for="date">Datum i vrijeme</label><br>
+              <input class="form-control mb-3 js-vrijeme" type="date" id="date" name="date"> <br>
+            </div>
+            <button class="btn btn-danger" onclick="location.href='/patientRecords'" type="button">Odustani</button>
+            <button class="btn btn-primary" name="toPatientsStatus" type="submit">Pošalji</button>
+          </div>
+        </form>
+      </div>
+      <div class="col-6 d-flex justify-content-center align-items-center">
+        <img src="images/blood-pressure.jpg" class="img img-fluid shadow" style="width: auto; max-height: 550px;">
+      </div>
+    </div>
+  </div>
+</div>
+<script src="scripts/new_record.js"></script>
+</body>
+</html>
+

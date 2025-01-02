@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Telemed App</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/styles/style.css">
+  <link rel="shortcut icon" type="image/x-icon" href="images/telemedicon.png" />
+
+</head>
+
+<body>
+<div class="container-fluid">
+  <button class="menu-toggle" onclick="toggleMenu()">&#9776;</button>
+  <!-- Sidebar -->
+  <div class="sidebar" id="sidebar-menu">
+    <h3> <img src="/images/telemed.png" width="230" height="80"></h3>
+    <nav class="flex-grow-1 d-flex flex-column">
+      <a href="records.html">Svi zapisi</a>
+      <a href="patients.html" class="link-primary">Lista pacijenata</a>
+      <div class="mt-auto">
+        <h4 class="pb-3 link-primary">Ivo Ivić</h4>
+        <a href="login.html" class="mt-auto">Odjava</a>
+      </div>
+    </nav>
+
+  </div>
+
+  <!-- Main Content -->
+  <div class="main-content">
+    <h2 class="mt-4">Lista pacijenata</h2> <br>
+    <div class="container-fluid">
+      <div class="row mb-3">
+        <div class="col d-flex justify-content-between align-items-center">
+          <div class="d-flex align-items-center">
+            <input type="search" class="form-control w-100" id="search" placeholder="Pretraži">
+            <select class="form-control w-auto ms-3" id="sort">
+              <option value="" disabled selected hidden>Sortiraj</option>
+              <option>Sistolički tlak</option>
+              <option>Dijastolički tlak</option>
+            </select>
+          </div>
+
+          <button class="btn btn-warning" onclick="location.href = 'new_patient.html'">Dodaj novog pacijenta</button>
+        </div>
+
+      </div>
+    </div>
+
+
+    <!-- Table -->
+    <div class="table-container table-responsive">
+      <table class="table">
+        <thead>
+        <tr>
+          <th>Ime i prezime</th>
+          <th>Vrijeme zadnjeg stanja</th>
+          <th style="max-width: 200px;">Opis</th>
+          <th>Tlak i puls</th>
+          <th></th>
+        </tr>
+        </thead>
+        <tbody class="js-patients">
+        <tr>
+          <td>Ivo Ivić</td>
+          <td> 19.12.2024 18:45</td>
+          <td style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 200px;">Osjećam se dobro za razliku od jučer kada mi nije bilo dobro.</td>
+          <td>120/80 70</td>
+          <td><button class="btn btn-secondary" onclick="location.href = 'patient.html';">Prikaži</button></td>
+        </tr>
+        <tr>
+          <td>Mirko Mirkić</td>
+          <td> 18.12.2024 18:45</td>
+          <td style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 200px;">Jako mi je loše, osjećam da mi se bolest vratila, mogu li doći na pregled.</td>
+          <td>120/80 70</td>
+          <td><button class="btn btn-secondary" onclick="location.href = 'patient.html';">Prikaži</button></td>
+        </tr>
+        <tr>
+          <td>Pero Perić</td>
+          <td> 17.12.2024 18:45</td>
+          <td style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 200px;">Osjećam se dobro.</td>
+          <td>120/80 70</td>
+          <td><button class="btn btn-secondary" onclick="location.href = 'patient.html';">Prikaži</button></td>
+        </tr>
+        <tr>
+          <td>Iva Ivanić</td>
+          <td> 16.12.2024 18:45</td>
+          <td style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 200px;">Pozdrav, sve je super, vidimo se sljedeći tjedan na pregledu.</td>
+          <td>120/80 70</td>
+          <td><button class="btn btn-secondary" onclick="location.href = 'patient.html';">Prikaži</button></td>
+        </tr>
+        <tr>
+          <td>Luka Lukić</td>
+          <td> 15.12.2024 18:45</td>
+          <td style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 200px;">Ne osjećam se baš najbolje, jučer sam popila prvu terapiju.</td>
+          <td>120/80 70</td>
+          <td><button class="btn btn-secondary" onclick="location.href = 'patient.html';">Prikaži</button></td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<script type="module" src="scripts/patients.js"></script>
+</body>
+
+</html>
