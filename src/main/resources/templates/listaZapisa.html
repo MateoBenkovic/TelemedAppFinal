@@ -102,7 +102,7 @@
 <body>
 <div class="header">
     <div class="user-card" onclick="toggleUserMenu()">
-        <span>Ivo Ivić</span>
+        <span th:text = "${session.user.firstName + ' ' + session.user.lastName }"></span>
         <img src="/images/user.png" alt="User">
         <div id="user-card-menu" class="user-card-menu">
             <a href="/logout" class="mt-auto">Odjava</a>

@@ -1,4 +1,4 @@
-package com.telemed.telemedApp;
+package com.telemed.telemedApp.model;
 
 import org.springframework.stereotype.Repository;
 
@@ -7,16 +7,16 @@ import java.util.Date;
 import java.util.List;
 
 @Repository
-public class PatientStatusRepository {
+public class PatientStatusRepositoryMem {
     List<PatientStatus> patientStatus = new ArrayList<>();
-
-    public PatientStatusRepository() {
+/*
+    public PatientStatusRepositoryMem() {
         patientStatus.add(new PatientStatus(new Date(), 120, 80, 80, "Dobro se osjecam"));
         patientStatus.add(new PatientStatus(new Date(), 150, 100, 94, "Lose se osjecam"));
         patientStatus.add(new PatientStatus(new Date(), 150, 100, 94, "Lose se osjecam"));
         patientStatus.add(new PatientStatus(new Date(), 150, 100, 94, "Lose se osjecam"));
     }
-
+*/
     public List<PatientStatus> getPatientStatus() {
         return patientStatus;
     }

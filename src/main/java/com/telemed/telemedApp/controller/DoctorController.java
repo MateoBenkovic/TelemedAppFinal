@@ -1,27 +1,34 @@
-package com.telemed.telemedApp;
+package com.telemed.telemedApp.controller;
 
+import com.telemed.telemedApp.model.PatientStatusRepository;
+import com.telemed.telemedApp.model.UserRepository;
+import com.telemed.telemedApp.model.UserRepositoryMem;
+import com.telemed.telemedApp.model.User;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @Controller
-public class PatientController {
-    PatientRepository patient;
+public class DoctorController {
 
-    public PatientController(PatientRepository patientRepository) {
-        this.patient = patientRepository;
-    }
+    @Autowired
+    UserRepository userRepositoryDB;
 
+    @Autowired
+    PatientStatusRepository patientStatusRepositoryDB;
 
+    /*
+    @GetMapping("/showPatientRecords")
+    public String getPatientRecords(@RequestParam("id") int id, Model model) {
+        model.addAttribute("patientRecords", patientStatusRepositoryDB.findByUser_id(id));
+        return "listaZapisa.html";
+    }*/
 
     @GetMapping("/listaPacijenata")
     public String getAllPatients(Model model) {
-        model.addAttribute("patients", patient.getPatientList());
+        model.addAttribute("patients", userRepositoryDB.findByType(1));
         return "listaPacijenata.html";
     }
 
@@ -44,25 +51,23 @@ public class PatientController {
             @RequestParam("kontakt") int kontakt,
             @RequestParam("email") String email,
             @RequestParam("korisnickoIme") String korisnickoIme,
-            @RequestParam("lozinka") String lozinka) {
-        patient.getPatientList().add(new Patient(mb, ime, prezime, datumRodjenja, spol, adresa, pb, grad, kontakt, email, korisnickoIme, lozinka));
+            @RequestParam("lozinka") String lozinka,
+            Model model) {
+        User newUser = new User(mb, ime, prezime, datumRodjenja, spol, adresa, pb, grad, kontakt, email, korisnickoIme, lozinka);
+        userRepositoryDB.save(newUser);
+
         return "redirect:/listaPacijenata";
     }
 
     @GetMapping("/deletePatient")
     public String deletePatient(@RequestParam("id") int id) {
-        for (Patient p : patient.getPatientList()) {
-            if(p.getId() == id) {
-                patient.getPatientList().remove(p);
-                break;
-            }
-        }
+        userRepositoryDB.deleteById(id);
         return "redirect:/listaPacijenata";
     }
 
     @GetMapping("/showPatient")
     public String showPatient(@RequestParam ("id") int id, Model model) {
-        Patient patientToEdit = patient.findById(id);
+        User patientToEdit = userRepositoryDB.findById(id).get();
         model.addAttribute("patient", patientToEdit);
 
         return "edit_patient.html";
@@ -81,9 +86,10 @@ public class PatientController {
                               @RequestParam("kontakt") int kontakt,
                               @RequestParam("email") String email,
                               @RequestParam("korisnickoIme") String korisnickoIme,
-                              @RequestParam("lozinka") String lozinka) {
+                              @RequestParam("lozinka") String lozinka,
+                              Model model) {
 
-        Patient patientToEdit = patient.findById(id);
+        User patientToEdit = userRepositoryDB.findById(id).get();
         patientToEdit.setMb(mb);
         patientToEdit.setIme(ime);
         patientToEdit.setPrezime(prezime);
@@ -96,6 +102,8 @@ public class PatientController {
         patientToEdit.setEmail(email);
         patientToEdit.setKorisnickoIme(korisnickoIme);
         patientToEdit.setLozinka(lozinka);
+
+        userRepositoryDB.save(patientToEdit);
 
         return "redirect:/listaPacijenata";
     }

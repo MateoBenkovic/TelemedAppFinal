@@ -1,30 +1,41 @@
-package com.telemed.telemedApp;
+package com.telemed.telemedApp.model;
 
+import jakarta.persistence.*;
+import org.springframework.cglib.core.Local;
+
+import java.time.LocalDate;
 import java.util.Date;
 
+@Entity
 public class PatientStatus {
+    @Id
+    @GeneratedValue
+    private int id;
     private String comment;
     private int systolic;
     private int diastolic;
     private int pulse;
-    private Date date;
-    private int id;
-    private static int idCounter;
+    private LocalDate date;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 
-    public PatientStatus(Date date, int systolic, int diastolic, int pulse, String comment) {
+    public PatientStatus() {
+    }
+
+    public PatientStatus(LocalDate date, int systolic, int diastolic, int pulse, String comment) {
         this.date = date;
         this.systolic = systolic;
         this.diastolic = diastolic;
         this.pulse = pulse;
         this.comment = comment;
-        id = idCounter++;
     }
 
-    public Date getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 
@@ -66,5 +77,13 @@ public class PatientStatus {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

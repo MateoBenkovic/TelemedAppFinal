@@ -1,6 +1,15 @@
-package com.telemed.telemedApp;
+package com.telemed.telemedApp.model;
 
-public class Patient {
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+
+@Entity (name="APP_USER")
+public class User {
+    @Id
+    @GeneratedValue
+    private int id;
+    private int type = 1;
     private int mb;
     private String ime;
     private String prezime;
@@ -13,10 +22,10 @@ public class Patient {
     private String email;
     private String korisnickoIme;
     private String lozinka;
-    private int id;
-    private static int idCounter;
 
-    public Patient(int mb, String ime, String prezime, String datumRodjenja, String spol, String adresa, int pb, String grad, int kontakt, String email, String korisnickoIme, String lozinka) {
+    public User() {}
+
+    public User(int mb, String ime, String prezime, String datumRodjenja, String spol, String adresa, int pb, String grad, int kontakt, String email, String korisnickoIme, String lozinka) {
         this.mb = mb;
         this.ime = ime;
         this.prezime = prezime;
@@ -29,7 +38,6 @@ public class Patient {
         this.email = email;
         this.korisnickoIme = korisnickoIme;
         this.lozinka = lozinka;
-        id = idCounter++;
     }
 
     public int getMb() {
@@ -134,5 +142,13 @@ public class Patient {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
     }
 }
