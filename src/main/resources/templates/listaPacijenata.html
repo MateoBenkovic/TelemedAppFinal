@@ -10,104 +10,67 @@
     <style>
         /* Header Styles */
         .header {
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          padding: 10px 20px;
-          background-color: #ffffff;
-          border-bottom: 1px solid #ddd;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            background-color: #ffffff;
+            border-bottom: 1px solid #ddd;
         }
 
         .header .user-card {
-          position: relative;
-          display: flex;
-          align-items: center;
-          gap: 10px;
-          cursor: pointer;
-          margin-left: auto;
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            margin-left: auto;
         }
 
         .header .user-card img {
-          height: 40px;
-          border-radius: 50%;
+            height: 40px;
+            border-radius: 50%;
         }
 
         /* User card menu style */
         .header .user-card-menu {
-          display: none;
-          position: absolute;
-          top: 50px;
-          right: 0;
-          background-color: #ffffff;
-          border: 1px solid #ddd;
-          border-radius: 5px;
-          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-          z-index: 1000;
-          width: 150px;
+            display: none;
+            position: absolute;
+            top: 50px;
+            right: 0;
+            background-color: #ffffff;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            width: 150px;
         }
 
         .header .user-card-menu a {
-          display: block;
-          padding: 10px 15px;
-          color: #000;
-          text-decoration: none;
-          white-space: nowrap;
+            display: block;
+            padding: 10px 15px;
+            color: #000;
+            text-decoration: none;
+            white-space: nowrap;
         }
 
         .header .user-card-menu a:hover {
-          background-color: #f8f9fa;
+            background-color: #f8f9fa;
         }
 
-        /* Sidebar Styles */
-        .sidebar {
-          width: 250px;
-          position: fixed;
-          top: 0;
-          left: 0;
-          bottom: 0;
-          background-color: #f8f9fa;
-          padding: 20px;
-          border-right: 1px solid #ddd;
-        }
+        .header .logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
 
-        .sidebar img {
-          width: 230px;
-          height: 80px;
-          margin-bottom: 20px;
-        }
-
-        .sidebar nav {
-          flex-grow: 1;
-          display: flex;
-          flex-direction: column;
-        }
-
-        .sidebar button {
-          background-color: #007bff;
-          color: white;
-          font-weight: bold;
-          border: none;
-          border-radius: 5px;
-          padding: 10px 20px;
-          font-size: 16px;
-          text-align: left;
-          width: 100%;
-          transition: background-color 0.3s ease, transform 0.3s ease;
-          margin-bottom: 10px;
-        }
-
-        .sidebar button:hover {
-          background-color: #0056b3;
-          transform: scale(1.05);
-        }
-
-        .sidebar button span {
-          display: inline;
-        }
-
+.header .logo img {
+    height: 80px;
+    width: auto;
+}
         /* Main Content Styles */
         .main-content {
-          margin-left: 250px;
+          margin: 0 auto;
           padding: 70px 20px 20px 20px; /* To avoid overlap with header */
         }
 
@@ -171,22 +134,17 @@
 <body>
 <!-- Header -->
 <div class="header">
+    <div class="logo">
+        <img src="/images/telemed.png" alt="Telemed Logo">
+    </div>
+
     <div class="user-card" onclick="toggleUserMenu()">
-        <span th:text = "${session.user.ime + ' ' + session.user.prezime }"></span>
+        <span th:text="${session.user.ime + ' ' + session.user.prezime }"></span>
         <img src="/images/user.png" alt="User">
         <div id="user-card-menu" class="user-card-menu">
             <a href="/logout" class="mt-auto">Odjava</a>
         </div>
     </div>
-</div>
-
-<!-- Sidebar -->
-<div class="sidebar">
-    <h3><img src="/images/telemed.png" width="230" height="80" alt="Logo"></h3>
-    <nav class="flex-grow-1 d-flex flex-column">
-        <button class="btn" onclick="location.href = '/patientStatus'">Svi zapisi</button>
-        <button class="btn" onclick="location.href = '/listaPacijenata'">Popis pacijenata</button>
-    </nav>
 </div>
 
 <!-- Main Content -->

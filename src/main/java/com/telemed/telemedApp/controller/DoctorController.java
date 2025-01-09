@@ -24,7 +24,7 @@ public class DoctorController {
         User patient = (User) userRepositoryDB.findById(id).get();
         List<PatientStatus> records = patientStatusRepositoryDB.findByUser(patient);
         model.addAttribute("patientStatus", records);
-        return "listaZapisa.html";
+        return "records.html";
     }
 
     @GetMapping("/listaPacijenata")

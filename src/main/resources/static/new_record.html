@@ -11,29 +11,66 @@
 
   <style>
     /* Header style */
+
         .header {
-            display: flex;
-            justify-content: space-between; /* Razmak između elemenata */
-            align-items: center;
-            padding: 10px 20px;
-            background-color: #ffffff;
-            border-bottom: 1px solid #ddd;
-        }
+             display: flex;
+             justify-content: space-between;
+             align-items: center;
+             padding: 10px 20px;
+             background-color: #ffffff;
+             border-bottom: 1px solid #ddd;
+         }
 
-        .header .user-card {
-            position: relative;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            cursor: pointer;
-            margin-left: auto; /* Pomaknite korisničku karticu na desnu stranu */
-        }
+         .header .user-card {
+             position: relative;
+             display: flex;
+             align-items: center;
+             gap: 10px;
+             cursor: pointer;
+             margin-left: auto;
+         }
 
-        .header .user-card img {
-            height: 40px;
-            border-radius: 50%;
-        }
+         .header .user-card img {
+             height: 40px;
+             border-radius: 50%;
+         }
 
+         /* User card menu style */
+         .header .user-card-menu {
+             display: none;
+             position: absolute;
+             top: 50px;
+             right: 0;
+             background-color: #ffffff;
+             border: 1px solid #ddd;
+             border-radius: 5px;
+             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+             z-index: 1000;
+             width: 150px;
+         }
+
+         .header .user-card-menu a {
+             display: block;
+             padding: 10px 15px;
+             color: #000;
+             text-decoration: none;
+             white-space: nowrap;
+         }
+
+         .header .user-card-menu a:hover {
+             background-color: #f8f9fa;
+         }
+
+         .header .logo {
+     display: flex;
+     align-items: center;
+     gap: 10px;
+ }
+
+ .header .logo img {
+     height: 80px;
+     width: auto;
+ }
         /* Dropdown menu styling */
         .user-card-menu {
             display: none;
@@ -63,42 +100,6 @@
             background-color: #f1f1f1;
         }
 
-    /* Sidebar style */
-        .sidebar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            height: 100%;
-            background-color: #f8f9fa;
-            width: 250px;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-
-        .sidebar h3 {
-            margin-top: 0;
-        }
-
-        .sidebar nav button {
-            background-color: #007bff;
-            color: white;
-            font-weight: bold;
-            border: none;
-            border-radius: 5px;
-            padding: 10px 20px;
-            font-size: 16px;
-            text-align: left;
-            width: 100%;
-            transition: background-color 0.3s ease, transform 0.3s ease;
-            margin-top: 10px;
-        }
-
-        .sidebar nav button:hover {
-            background-color: #0056b3;
-            transform: scale(1.05);
-        }
   </style>
 
 </head>
@@ -107,21 +108,17 @@
 
 <!-- Header -->
 <div class="header">
+  <div class="logo">
+    <img src="/images/telemed.png" alt="Telemed Logo">
+  </div>
+
   <div class="user-card" onclick="toggleUserMenu()">
-    <span th:text = "${session.user.ime + ' ' + session.user.prezime }"></span>
+    <span th:text="${session.user.ime + ' ' + session.user.prezime }"></span>
     <img src="/images/user.png" alt="User">
     <div id="user-card-menu" class="user-card-menu">
-      <a href="/logout">Odjava</a>
+      <a href="/logout" class="mt-auto">Odjava</a>
     </div>
   </div>
-</div>
-<!-- Sidebar -->
-<div class="sidebar">
-  <h3><img src="/images/telemed.png" width="230" height="80" alt="Logo"></h3>
-  <nav class="flex-grow-1 d-flex flex-column">
-    <button class="btn" onclick="location.href = '/patientStatus'">Svi zapisi</button>
-    <button class="btn" onclick="location.href = '/listaPacijenata'">Popis pacijenata</button>
-  </nav>
 </div>
 
   <!-- Main Content -->

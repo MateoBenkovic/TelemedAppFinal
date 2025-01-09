@@ -7,13 +7,13 @@
     <title>Telemed App</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="styles/style.css">
-    <link rel="shortcut icon" type="image/x-icon" href="images/telemedicon.png" />
+    <link rel="shortcut icon" type="image/x-icon" href="images/telemedicon.png"/>
 
     <style>
         /* Header style */
         .header {
             display: flex;
-            justify-content: space-between; /* Razmak između elemenata */
+            justify-content: space-between;
             align-items: center;
             padding: 10px 20px;
             background-color: #ffffff;
@@ -26,12 +26,48 @@
             align-items: center;
             gap: 10px;
             cursor: pointer;
-            margin-left: auto; /* Pomaknite korisničku karticu na desnu stranu */
+            margin-left: auto;
         }
 
         .header .user-card img {
             height: 40px;
             border-radius: 50%;
+        }
+
+        .header .user-card-menu {
+            display: none;
+            position: absolute;
+            top: 50px;
+            right: 0;
+            background-color: #ffffff;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            width: 150px;
+        }
+
+        .header .user-card-menu a {
+            display: block;
+            padding: 10px 15px;
+            color: #000;
+            text-decoration: none;
+            white-space: nowrap;
+        }
+
+        .header .user-card-menu a:hover {
+            background-color: #f8f9fa;
+        }
+
+        .header .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .header .logo img {
+            height: 80px;
+            width: auto;
         }
 
         /* Dropdown menu styling */
@@ -53,7 +89,7 @@
 
         .user-card-menu a {
             text-decoration: none;
-            color: black;  /* Promijenili smo boju u crnu */
+            color: black;
             font-size: 16px;
             padding: 5px;
             display: block;
@@ -62,159 +98,115 @@
         .user-card-menu a:hover {
             background-color: #f1f1f1;
         }
-
-        /* Sidebar style */
-        .sidebar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            height: 100%;
-            background-color: #f8f9fa;
-            width: 250px;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-
-        .sidebar h3 {
-            margin-top: 0;
-        }
-
-        .sidebar nav button {
-            background-color: #007bff;
-            color: white;
-            font-weight: bold;
-            border: none;
-            border-radius: 5px;
-            padding: 10px 20px;
-            font-size: 16px;
-            text-align: left;
-            width: 100%;
-            transition: background-color 0.3s ease, transform 0.3s ease;
-            margin-top: 10px;
-        }
-
-        .sidebar nav button:hover {
-            background-color: #0056b3;
-            transform: scale(1.05);
-        }
     </style>
-
 </head>
 
 <body>
-   <!-- Header -->
-    <div class="header">
-        <div class="user-card" onclick="toggleUserMenu()">
-            <span th:text = "${session.user.ime + ' ' + session.user.prezime }"></span>
-            <img src="/images/user.png" alt="User">
-            <div id="user-card-menu" class="user-card-menu">
-                <a href="/logout" class="mt-auto">Odjava</a>
-            </div>
+<!-- Header -->
+<div class="header">
+    <div class="logo">
+        <img src="/images/telemed.png" alt="Telemed Logo">
+    </div>
+
+    <div class="user-card" onclick="toggleUserMenu()">
+        <span th:text="${session.user.ime + ' ' + session.user.prezime }"></span>
+        <img src="/images/user.png" alt="User">
+        <div id="user-card-menu" class="user-card-menu">
+            <a href="/logout" class="mt-auto">Odjava</a>
         </div>
     </div>
+</div>
 
-    <!-- Sidebar -->
-    <div class="sidebar">
-        <h3><img src="/images/telemed.png" width="230" height="80" alt="Logo"></h3>
-        <nav class="flex-grow-1 d-flex flex-column">
-            <button class="btn" onclick="location.href = '/patientStatus'">Svi zapisi</button>
-            <button class="btn" onclick="location.href = '/listaPacijenata'">Popis pacijenata</button>
-        </nav>
-    </div>
+<!-- Main Content -->
+<div class="main-content">
+    <h2 class="mt-4">Uredi korisnika</h2> <br>
+    <div class="row">
+        <div class="col-6">
+            <form action="/editPatient">
 
-    <!-- Main Content -->
-    <div class="main-content">
-        <h2 class="mt-4">Uredi Korisnika</h2> <br>
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-6">
-                    <form action="/editPatient">
-
-                        <div>
-                            <label for="mb">Matični broj</label><br>
-                            <input th:value = "${patient.mb}" class="form-control mb-3 js-mb" type="number" id="mb" name="mb"
-                                   placeholder="Unesite matični broj pacijenta">
-                        </div>
-                        <div>
-                            <label for="ime">Ime</label><br>
-                            <input th:value = "${patient.ime}" class="form-control mb-3 js-ime" type="text" id="ime" placeholder="Unesite ime pacijenta" name="ime">
-                        </div>
-                        <div>
-                            <label for="prezime">Prezime</label><br>
-                            <input th:value = "${patient.prezime}" class="form-control mb-3 js-prezime" type="text" id="prezime"
-                                   placeholder="Unesite prezime pacijenta" name="prezime">
-                        </div>
-                        <div class="row mb-3">
-                            <div class="col-md-4">
-                                <label>Datum rodjenja</label><br>
-                                <input th:value = "${patient.datumRodjenja}" class="form-control mb-3 js-datum-rodjenja" type="date" id="date" name="datumRodjenja">
-                            </div>
-                            <div class="col-md-8">
-                                <label for="spol">Spol:</label>
-                                <select id="spol" name="spol" required>
-                                    <option th:selected = "${patient.spol == 'Muško'}" value="Muško">Muško</option>
-                                    <option th:selected = "${patient.spol == 'Žensko'}" value="Žensko">Žensko</option>
-                                </select>
-
-                            </div>
-                        </div>
-                        <div>
-                            <label for="adresa">Adresa stanovanja</label><br>
-                            <input th:value = "${patient.adresa}" class="form-control mb-3 js-adresa" type="text" id="adresa"
-                                   placeholder="Unesite ulicu i kućni broj" name="adresa">
-                        </div>
-                        <div class="row mb-3">
-                            <div class="col-md-4">
-                                <label>Poštanski broj</label><br>
-                                <input th:value = "${patient.pb}" class="form-control mb-3 js-pb" type="number" name="pb">
-                            </div>
-                            <div class="col-md-8">
-                                <label for="grad">Grad</label><br>
-                                <input th:value = "${patient.grad}" class="form-control mb-3 js-grad" type="text" id="grad" name="grad">
-                            </div>
-                        </div>
-                        <div>
-                            <label for="kontakt">Mobitel/Telefon</label><br>
-                            <input th:value = "${patient.kontakt}" class="form-control mb-3 js-kontakt" type="number" id="kontakt"
-                                   placeholder="0991234567 ili 044742584" name="kontakt">
-                        </div>
-
-                        <div class="col-6">
-                            <div>
-                                <label for="email">Email</label><br>
-                                <input th:value = "${patient.email}" class="form-control mb-3 js-email" type="email" id="email" placeholder="adresa@adresa.com" name="email">
-                            </div>
-                            <div>
-                                <label for="username">Korisničko ime</label><br>
-                                <input th:value = "${patient.korisnickoIme}" class="form-control mb-3 js-username" type="text" id="username"
-                                       placeholder="Korisničko ime za prijavu u aplikaciju" name="korisnickoIme">
-                            </div>
-                            <div>
-                                <label for="lozinka">Lozinka</label><br>
-                                <input th:value = "${patient.lozinka}" class="form-control mb-3 js-lozinka" type="text" id="lozinka"
-                                       placeholder="Lozinka za prijavu u aplikaciju" name="lozinka">
-                            </div>
-                            <input th:value = "${patient.id}" name="id" type="hidden">
-
-                            <button class="btn btn-danger" onclick="location.href='/listaPacijenata'" type="button">Odustani</button>
-                            <button class="btn btn-primary" name="toPatients" type="submit">Spremi</button>
-
-                    </div></form>
-
-
-
+                <div>
+                    <label for="mb">Matični broj</label><br>
+                    <input th:value="${patient.mb}" class="form-control mb-3 js-mb" type="number" id="mb" name="mb"
+                           placeholder="Unesite matični broj pacijenta">
                 </div>
+                <div>
+                    <label for="ime">Ime</label><br>
+                    <input th:value="${patient.ime}" class="form-control mb-3 js-ime" type="text" id="ime"
+                           placeholder="Unesite ime pacijenta" name="ime">
+                </div>
+                <div>
+                    <label for="prezime">Prezime</label><br>
+                    <input th:value="${patient.prezime}" class="form-control mb-3 js-prezime" type="text"
+                           id="prezime"
+                           placeholder="Unesite prezime pacijenta" name="prezime">
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-4">
+                        <label>Datum rodjenja</label><br>
+                        <input th:value="${patient.datumRodjenja}" class="form-control mb-3 js-datum-rodjenja"
+                               type="date" id="date" name="datumRodjenja">
+                    </div>
+                    <div class="col-md-8">
+                        <label for="spol">Spol:</label>
+                        <select id="spol" name="spol" required>
+                            <option th:selected="${patient.spol == 'Muško'}" value="Muško">Muško</option>
+                            <option th:selected="${patient.spol == 'Žensko'}" value="Žensko">Žensko</option>
+                        </select>
+                    </div>
+                </div>
+                <div>
+                    <label for="adresa">Adresa stanovanja</label><br>
+                    <input th:value="${patient.adresa}" class="form-control mb-3 js-adresa" type="text" id="adresa"
+                           placeholder="Unesite ulicu i kućni broj" name="adresa">
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-4">
+                        <label>Poštanski broj</label><br>
+                        <input th:value="${patient.pb}" class="form-control mb-3 js-pb" type="number" name="pb">
+                    </div>
+                    <div class="col-md-8">
+                        <label for="grad">Grad</label><br>
+                        <input th:value="${patient.grad}" class="form-control mb-3 js-grad" type="text" id="grad"
+                               name="grad">
+                    </div>
+                </div>
+                <div>
+                    <label for="kontakt">Mobitel/Telefon</label><br>
+                    <input th:value="${patient.kontakt}" class="form-control mb-3 js-kontakt" type="number"
+                           id="kontakt"
+                           placeholder="0991234567 ili 044742584" name="kontakt">
+                </div>
+                <div class="col-6">
+                    <div>
+                        <label for="email">Email</label><br>
+                        <input th:value="${patient.email}" class="form-control mb-3 js-email" type="email"
+                               id="email" placeholder="adresa@adresa.com" name="email">
+                    </div>
+                    <div>
+                        <label for="username">Korisničko ime</label><br>
+                        <input th:value="${patient.korisnickoIme}" class="form-control mb-3 js-username" type="text"
+                               id="username"
+                               placeholder="Korisničko ime za prijavu u aplikaciju" name="korisnickoIme">
+                    </div>
+                    <div>
+                        <label for="lozinka">Lozinka</label><br>
+                        <input th:value="${patient.lozinka}" class="form-control mb-3 js-lozinka" type="text"
+                               id="lozinka"
+                               placeholder="Lozinka za prijavu u aplikaciju" name="lozinka">
+                    </div>
+                    <input th:value="${patient.id}" name="id" type="hidden">
 
-
-            </div>
+                    <button class="btn btn-danger" onclick="location.href='/listaPacijenata'" type="button">
+                        Odustani
+                    </button>
+                    <button class="btn btn-primary" name="toPatients" type="submit">Spremi</button>
+                </div>
+            </form>
+        </div>
+        <div class="col-6 d-flex justify-content-center align-items-center">
+            <img src="images/blood-pressure.jpg" class="img img-fluid shadow" style="width: auto; max-height: 550px;">
         </div>
     </div>
-</div>
-
-
-</div>
 </div>
 </body>
 

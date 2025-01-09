@@ -9,21 +9,93 @@
   <link rel="stylesheet" href="styles/style.css">
   <link rel="shortcut icon" type="image/x-icon" href="images/telemedicon.png" />
 
+  <style>
+    .main-content {
+          margin: 0 auto;
+          padding: 70px 20px 20px 20px;
+        }
+
+     /* Header style */
+
+        .header {
+             display: flex;
+             justify-content: space-between;
+             align-items: center;
+             padding: 10px 20px;
+             background-color: #ffffff;
+             border-bottom: 1px solid #ddd;
+         }
+
+         .header .user-card {
+             position: relative;
+             display: flex;
+             align-items: center;
+             gap: 10px;
+             cursor: pointer;
+             margin-left: auto;
+         }
+
+         .header .user-card img {
+             height: 40px;
+             border-radius: 50%;
+         }
+
+         /* User card menu style */
+         .header .user-card-menu {
+             display: none;
+             position: absolute;
+             top: 50px;
+             right: 0;
+             background-color: #ffffff;
+             border: 1px solid #ddd;
+             border-radius: 5px;
+             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+             z-index: 1000;
+             width: 150px;
+         }
+
+         .header .user-card-menu a {
+             display: block;
+             padding: 10px 15px;
+             color: #000;
+             text-decoration: none;
+             white-space: nowrap;
+         }
+
+         .header .user-card-menu a:hover {
+             background-color: #f8f9fa;
+         }
+
+         .header .logo {
+     display: flex;
+     align-items: center;
+     gap: 10px;
+ }
+
+ .header .logo img {
+     height: 80px;
+     width: auto;
+ }
+
+  </style>
+
 
 </head>
 
 <body>
-<div class="container-fluid">
-  <button class="menu-toggle" onclick="toggleMenu()">&#9776;</button>
-  <!-- Sidebar -->
-  <div class="sidebar" id="sidebar-menu">
-    <h3> <img src="images/telemed.png" width="230" height="80"></h3>
-    <nav class="flex-grow-1 d-flex flex-column">
-      <button class="btn btn-danger mt-3" onclick="location.href = '/patientStatus'">
-        Natrag
-      </button>
+  <!-- Header -->
+  <div class="header">
+    <div class="logo">
+      <img src="/images/telemed.png" alt="Telemed Logo">
+    </div>
 
-    </nav>
+    <div class="user-card" onclick="toggleUserMenu()">
+      <span th:text="${session.user.ime + ' ' + session.user.prezime }"></span>
+      <img src="/images/user.png" alt="User">
+      <div id="user-card-menu" class="user-card-menu">
+        <a href="/logout" class="mt-auto">Odjava</a>
+      </div>
+    </div>
   </div>
 
   <!-- Main Content -->
@@ -55,8 +127,8 @@
             </div>
             <input th:value = "${patientStatus.id}" name="id" type="hidden">
 
+            <button class="btn btn-danger" onclick="location.href='/patientStatus'" type="button">Odustani</button>
             <button class="btn btn-primary" name="toPatientsStatus" type="submit">Spremi</button>
-            <button class="btn btn-primary btn-danger" name="reset" type="reset">Obriši</button>
           </div>
         </form>
       </div>

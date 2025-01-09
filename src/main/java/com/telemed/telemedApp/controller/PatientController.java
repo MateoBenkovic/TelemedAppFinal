@@ -43,7 +43,7 @@ public class PatientController {
     @GetMapping("/patientRecords")
     public String patientRecord(Model model) {
         model.addAttribute("patientRecords", patientStatus.getPatientStatus());
-        return "listaZapisa.html";
+        return "records.html";
     }
 
     @GetMapping("/patients")
