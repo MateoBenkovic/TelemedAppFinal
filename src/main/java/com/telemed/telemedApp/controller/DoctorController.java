@@ -1,14 +1,13 @@
 package com.telemed.telemedApp.controller;
 
-import com.telemed.telemedApp.model.PatientStatusRepository;
-import com.telemed.telemedApp.model.UserRepository;
-import com.telemed.telemedApp.model.UserRepositoryMem;
-import com.telemed.telemedApp.model.User;
+import com.telemed.telemedApp.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.List;
 
 @Controller
 public class DoctorController {
@@ -19,12 +18,14 @@ public class DoctorController {
     @Autowired
     PatientStatusRepository patientStatusRepositoryDB;
 
-    /*
+
     @GetMapping("/showPatientRecords")
     public String getPatientRecords(@RequestParam("id") int id, Model model) {
-        model.addAttribute("patientRecords", patientStatusRepositoryDB.findByUser_id(id));
+        User patient = (User) userRepositoryDB.findById(id).get();
+        List<PatientStatus> records = patientStatusRepositoryDB.findByUser(patient);
+        model.addAttribute("patientStatus", records);
         return "listaZapisa.html";
-    }*/
+    }
 
     @GetMapping("/listaPacijenata")
     public String getAllPatients(Model model) {
