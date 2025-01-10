@@ -154,7 +154,7 @@
 
     <!-- Button Section -->
     <div class="content-buttons">
-        <button class="btn btn-warning" onclick="location.href = '/new_patient.html'">Novi pacijent</button>
+        <button class="btn btn-warning" onclick="location.href = '/newPatient'">Novi pacijent</button>
     </div>
 
     <!-- Table -->
@@ -162,43 +162,30 @@
         <table class="table table-striped table-bordered">
             <thead>
             <tr>
-                <th>MB</th>
-                <th>Ime</th>
-                <th>Prezime</th>
-                <th>Datum Rođenja</th>
-                <th>Spol</th>
-                <th>Adresa</th>
-                <th>PB</th>
-                <th>Grad</th>
-                <th>Kontakt</th>
-                <th>Email</th>
-                <th>Korisničko Ime</th>
-                <th>Lozinka</th>
-                <th>Actions</th>
+                <th>Ime i prezime</th>
+                <th>Vrijeme zadnjeg stanja</th>
+                <th>Opis</th>
+                <th>Tlak i puls</th>
+                <th>Opcije</th>
             </tr>
             </thead>
             <tbody>
             <tr th:each="patient : ${patients}">
-                <td th:text="${patient.mb}"></td>
-                <td th:text="${patient.ime}"></td>
-                <td th:text="${patient.prezime}"></td>
-                <td th:text="${patient.datumRodjenja}"></td>
-                <td th:text="${patient.spol}"></td>
-                <td th:text="${patient.adresa}"></td>
-                <td th:text="${patient.pb}"></td>
-                <td th:text="${patient.grad}"></td>
-                <td th:text="${patient.kontakt}"></td>
-                <td th:text="${patient.email}"></td>
-                <td th:text="${patient.korisnickoIme}"></td>
-                <td th:text="${patient.lozinka}"></td>
+                <td th:text="${patient[1] + ' ' + patient[2]}"></td>
+                <td th:text="${patient[7]}"></td>
+                <td th:text="${patient[3]}"></td>
+                <td th:text="${(patient[5] != null and patient[4] != null and patient[6] != null) ? patient[5] + '/' + patient[4] + ' ' + patient[6] : ''}"></td>
+
+
                 <td>
-                    <a th:href="@{'/deletePatient?id=' + ${patient.id}}" class="btn btn-sm">
-                        <img src="/images/delete.png" width="20" height="20" alt="Delete">
+                    <a th:href="@{'/deletePatient?id=' + ${patient[0]}}" class="btn btn-sm">
+                        <img src="/images/delete.png" width="20" height="20" alt="Delete"
+                        onclick="return confirmDeletion();">
                     </a>
-                    <a th:href="@{'/showPatient?id=' + ${patient.id}}" class="btn btn-sm">
+                    <a th:href="@{'/showPatient?id=' + ${patient[0]}}" class="btn btn-sm">
                         <img src="/images/edit.png" width="20" height="20" alt="Edit">
                     </a>
-                    <a th:href="@{'/showPatientRecords?id=' + ${patient.id}}" class="btn btn-sm">
+                    <a th:href="@{'/showPatientRecords?id=' + ${patient[0]}}" class="btn btn-sm">
                         <img src="/images/list.png" width="20" height="20" alt="Edit">
                     </a>
 
@@ -210,5 +197,11 @@
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    function confirmDeletion() {
+
+        return confirm('Jeste li sigurni da želite obrisati pacijenta?');
+    }
+</script>
 </body>
 </html>

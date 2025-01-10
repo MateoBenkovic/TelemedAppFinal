@@ -3,14 +3,12 @@ package com.telemed.telemedApp.controller;
 import com.telemed.telemedApp.model.*;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cglib.core.Local;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -33,7 +31,7 @@ public class PatientController {
 
         User currentUser = (User) session.getAttribute("user");
         userRepositoryDB.findById(currentUser.getId());
-        List<PatientStatus> records = patientStatusDB.findByUser(currentUser);
+        List<PatientStatus> records = patientStatusDB.findByUserOrderByDateDesc(currentUser);
 
         model.addAttribute("patientStatus", records);
 
@@ -44,6 +42,11 @@ public class PatientController {
     public String patientRecord(Model model) {
         model.addAttribute("patientRecords", patientStatus.getPatientStatus());
         return "records.html";
+    }
+
+    @GetMapping("/newRecord")
+    public String newRecord(Model model) {
+        return "new_record.html";
     }
 
     @GetMapping("/patients")

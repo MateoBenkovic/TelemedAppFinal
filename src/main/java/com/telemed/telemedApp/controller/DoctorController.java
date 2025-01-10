@@ -22,19 +22,23 @@ public class DoctorController {
     @GetMapping("/showPatientRecords")
     public String getPatientRecords(@RequestParam("id") int id, Model model) {
         User patient = (User) userRepositoryDB.findById(id).get();
-        List<PatientStatus> records = patientStatusRepositoryDB.findByUser(patient);
+        List<PatientStatus> records = patientStatusRepositoryDB.findByUserOrderByDateDesc(patient);
+        model.addAttribute("patient", patient);
         model.addAttribute("patientStatus", records);
-        return "records.html";
+        return "recordsDoctorView.html";
     }
 
-    @GetMapping("/listaPacijenata")
+    @GetMapping("/patientsDoctorView")
     public String getAllPatients(Model model) {
-        model.addAttribute("patients", userRepositoryDB.findByType(1));
-        return "listaPacijenata.html";
+        //model.addAttribute("patients", userRepositoryDB.findByType(1));
+        List<Object[]> patients = userRepositoryDB.findUsersWithLatestPatientStatus();
+        model.addAttribute("patients", patients);
+
+        return "patientList.html";
     }
 
-    @GetMapping("/addPatientForm")
-    public String showAddPatientForm() {
+    @GetMapping("/newPatient")
+    public String showAddPatientForm(Model model) {
         return "new_patient.html";
     }
 
@@ -57,13 +61,15 @@ public class DoctorController {
         User newUser = new User(mb, ime, prezime, datumRodjenja, spol, adresa, pb, grad, kontakt, email, korisnickoIme, lozinka);
         userRepositoryDB.save(newUser);
 
-        return "redirect:/listaPacijenata";
+        return "redirect:/patientsDoctorView";
     }
 
     @GetMapping("/deletePatient")
     public String deletePatient(@RequestParam("id") int id) {
+        List<PatientStatus> patientStatuses = patientStatusRepositoryDB.findByUserId(id);
+        patientStatusRepositoryDB.deleteAll(patientStatuses);
         userRepositoryDB.deleteById(id);
-        return "redirect:/listaPacijenata";
+        return "redirect:/patientsDoctorView";
     }
 
     @GetMapping("/showPatient")
@@ -106,7 +112,7 @@ public class DoctorController {
 
         userRepositoryDB.save(patientToEdit);
 
-        return "redirect:/listaPacijenata";
+        return "redirect:/patientsDoctorView";
     }
 
 }

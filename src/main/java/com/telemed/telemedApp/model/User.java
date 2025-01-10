@@ -3,7 +3,9 @@ package com.telemed.telemedApp.model;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import lombok.Data;
 
+@Data
 @Entity (name="APP_USER")
 public class User {
     @Id
@@ -23,6 +25,7 @@ public class User {
     private String korisnickoIme;
     private String lozinka;
 
+
     public User() {}
 
     public User(int mb, String ime, String prezime, String datumRodjenja, String spol, String adresa, int pb, String grad, int kontakt, String email, String korisnickoIme, String lozinka) {
@@ -39,7 +42,7 @@ public class User {
         this.korisnickoIme = korisnickoIme;
         this.lozinka = lozinka;
     }
-
+/*
     public int getMb() {
         return mb;
     }
@@ -150,5 +153,5 @@ public class User {
 
     public void setType(int type) {
         this.type = type;
-    }
+    }*/
 }

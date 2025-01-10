@@ -6,5 +6,7 @@ import java.util.List;
 
 public interface PatientStatusRepository extends JpaRepository<PatientStatus, Integer> {
 
-    List<PatientStatus> findByUser(User user);
+    List<PatientStatus> findByUserOrderByDateDesc(User user);
+    List<PatientStatus> findByUserId(int id);
+
 }

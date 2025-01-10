@@ -149,27 +149,15 @@
 <div class="main-content">
     <h2 class="mt-4">Svi zapisi</h2> <br>
     <div class="row mb-3">
-        <div class="col d-flex justify-content-between align-items-end">
-            <!-- Left-aligned section -->
-            <div class="d-flex">
-                <div class="me-3">
-                    <label for="from-date">Od datuma:</label>
-                    <input type="date" class="form-control" id="from-date">
-                </div>
-                <div class="me-3">
-                    <label for="to-date">Do datuma:</label>
-                    <input type="date" class="form-control" id="to-date">
-                </div>
-                <div>
-                    <label for="sort">Sortiraj po:</label>
-                    <select class="form-control" id="sort">
-                        <option>Sistolički tlak</option>
-                        <option>Dijastolički tlak</option>
-                    </select>
-                </div>
+        <div>
+            <div>
+                    <p th:text="${patient.ime + ' ' + patient.prezime}"></p>
+                    <p th:text="${patient.datumRodjenja}"></p>
+                    <p th:text="${patient.email}"></p>
+                    <p th:text="${patient.kontakt}"></p>
+                    <p th:text="${patient.adresa + ', ' + patient.pb + ' ' + patient.grad}"></p>
             </div>
-
-            <button class="btn btn-warning" onclick="location.href = '/newRecord'">Novi zapis</button>
+            <button class="btn btn-danger" onclick="location.href = '/patientsDoctorView'">Natrag</button>
         </div>
     </div>
 
@@ -183,8 +171,6 @@
                 <th>Dijastolički tlak</th>
                 <th>Otkucaji srca</th>
                 <th>Komentar</th>
-                <th>Obriši</th>
-                <th>Uredi</th>
             </tr>
             </thead>
             <tbody id="records">
@@ -194,29 +180,11 @@
                 <td th:text="${item.diastolic}"></td>
                 <td th:text="${item.pulse}"></td>
                 <td th:text="${item.comment}"></td>
-                <td>
-                    <a th:href="@{'/deleteStatus?id=' + ${item.id}}">
-                        <img src="/images/delete.png" width="25" height="25"
-                             onclick="return confirmDeletion();">
-                    </a>
-                </td>
-                <td>
-                    <a th:href="@{'/showStatus?id=' + ${item.id}}">
-                        <img src="/images/edit.png" width="24" height="24">
-                    </a>
-                </td>
             </tr>
             </tbody>
         </table>
     </div>
 </div>
-
-<script>
-    function confirmDeletion() {
-
-        return confirm('Jeste li sigurni da želite obrisati stanje?');
-    }
-</script>
 </body>
 
 </html>

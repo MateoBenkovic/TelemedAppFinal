@@ -1,11 +1,13 @@
 package com.telemed.telemedApp.model;
 
 import jakarta.persistence.*;
+import lombok.Data;
 import org.springframework.cglib.core.Local;
 
 import java.time.LocalDate;
 import java.util.Date;
 
+@Data
 @Entity
 public class PatientStatus {
     @Id
@@ -30,7 +32,7 @@ public class PatientStatus {
         this.pulse = pulse;
         this.comment = comment;
     }
-
+/*
     public LocalDate getDate() {
         return date;
     }
@@ -85,5 +87,5 @@ public class PatientStatus {
 
     public void setUser(User user) {
         this.user = user;
-    }
+    }*/
 }

@@ -37,7 +37,7 @@ public class LoginController {
             }
         }
         if (user == null) {
-            model.addAttribute("loginMessage", "Wrong username or password");
+            model.addAttribute("loginMessage", "Netočan email ili lozinka!");
             return "login.html";
         } else {
             System.out.println("User logged in: " + user);
@@ -46,7 +46,7 @@ public class LoginController {
                 return "redirect:/patientStatus";
             } else if (user.getType() == 0) {
                 session.setAttribute("user", user);
-                return "redirect:/listaPacijenata";
+                return "redirect:/patientsDoctorView";
             }
         }
         return "login.html";
