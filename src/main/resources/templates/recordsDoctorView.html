@@ -9,6 +9,22 @@
     <link rel="stylesheet" href="/styles/style.css">
     <link rel="shortcut icon" type="image/x-icon" href="images/telemedicon.png"/>
     <style>
+
+        .footer {
+    background-color: #6c757d; /* Siva boja */
+    color: white; /* Bijeli tekst */
+    text-align: center; /* Centriranje teksta */
+    padding: 15px 0; /* Razmak unutar footera */
+    width: 100%; /* Proteže footer preko cijele širine */
+}
+
+ html, body {
+    height: 100%;
+    margin: 0; /* Uklanja sve margine na tijelu i html-u */
+    padding: 0; /* Uklanja sve paddinge */
+    box-sizing: border-box; /* Osigurava da padding i margin ne utječu na dimenzije elemenata */
+}
+
         .header {
             display: flex;
             justify-content: space-between;
@@ -64,15 +80,20 @@
     gap: 10px;
 }
 
+.d-flex p {
+    margin-bottom: 0.2rem;
+}
+
 .header .logo img {
     height: 80px;
     width: auto;
 }
 
         .main-content {
-            margin: 0 auto;
-            padding: 70px 20px 20px 20px;
-        }
+    flex-grow: 1;
+    padding: 20px; /* Ako trebaš razmak unutar glavnog sadržaja */
+    margin: 0; /* Uklanja sve margine */
+}
 
         /* Identical Table Styles */
         .table-container {
@@ -112,6 +133,27 @@
             width: auto;
         }
 
+        /* Stilizacija strelice */
+.back-arrow {
+    display: inline-block;
+    font-size: 48px; /* Povećana veličina strelice */
+    text-decoration: none; /* Uklanja podcrtavanje */
+    color: black; /* Zadana boja strelice */
+    transition: transform 0.3s ease, text-shadow 0.3s ease, color 0.3s ease; /* Glatke tranzicije */
+    text-align: center;
+    padding: 5px; /* Dodaje malo prostora oko strelice */
+}
+
+/* Efekt hovera */
+.back-arrow:hover {
+    transform: scale(1.3); /* Povećava strelicu */
+    color: #007bff; /* Mijenja boju u plavu */
+    text-shadow: 0 0 15px #007bff, 0 0 30px #007bff; /* Glow efekt po obrisu strelice */
+    cursor: pointer;
+}
+
+
+
     </style>
     <script>
         function toggleUserMenu() {
@@ -128,7 +170,7 @@
     </script>
 </head>
 
-<body>
+<body class="d-flex flex-column" style="min-height: 100vh;">
 <div class="header">
     <div class="logo">
         <img src="/images/telemed.png" alt="Telemed Logo">
@@ -147,19 +189,41 @@
 
 <!-- Main Content -->
 <div class="main-content">
-    <h2 class="mt-4">Svi zapisi</h2> <br>
+
+
     <div class="row mb-3">
-        <div>
-            <div>
-                    <p th:text="${patient.ime + ' ' + patient.prezime}"></p>
-                    <p th:text="${patient.datumRodjenja}"></p>
-                    <p th:text="${patient.email}"></p>
-                    <p th:text="${patient.kontakt}"></p>
-                    <p th:text="${patient.adresa + ', ' + patient.pb + ' ' + patient.grad}"></p>
+        <!-- Lijevi stupac - Gumb "Natrag" i naslov -->
+        <div class="col-6 d-flex flex-column align-items-start">
+            <!-- Slika -->
+            <a class="back-arrow" onclick="location.href = '/patientsDoctorView'">
+                ←
+            </a>
+            <!-- Naslov -->
+            <h2 class="mb-0">Zapisi pacijenta</h2>
+        </div>
+
+        <!-- Desni stupac - Gumbi i podaci o pacijentu -->
+        <div class="col-6 d-flex flex-column align-items-end">
+            <!-- Gumbi ispod naslova -->
+            <div class="mb-3">
+                <a th:href="@{'/showPatient?id=' + ${patient.id}}" class="btn btn-warning btn-sm">Uredi pacijenta</a>
+                <input type="hidden" name="id" th:value="${patient.id}">
+                <a th:href="@{'/deletePatient?id=' + ${patient.id}}" class="btn btn-danger btn-sm" onclick="return confirmDeletion();">
+                    Obriši pacijenta
+                </a>
             </div>
-            <button class="btn btn-danger" onclick="location.href = '/patientsDoctorView'">Natrag</button>
+
+            <!-- Podaci o pacijentu -->
+            <div class="d-flex flex-column align-items-end">
+                <p th:text="${patient.ime + ' ' + patient.prezime}" class="js-name"></p>
+                <p th:text="${patient.datumRodjenja}"></p>
+                <p th:text="${patient.email}"></p>
+                <p th:text="${patient.kontakt}"></p>
+                <p th:text="${patient.adresa + ', ' + patient.pb + ' ' + patient.grad}"></p>
+            </div>
         </div>
     </div>
+
 
     <!-- Table -->
     <div class="table-container">
@@ -185,6 +249,16 @@
         </table>
     </div>
 </div>
+<footer class="footer">
+    <p>@2025 TELEMED SVA PRAVA PRIDRŽANA</p>
+</footer>
+
+<script>
+    let name = document.querySelector('.js-name').innerHTML;
+    function confirmDeletion() {
+        return confirm('Jeste li sigurni da želite obrisati pacijenta ' + name + '?');
+    }
+</script>
 </body>
 
 </html>

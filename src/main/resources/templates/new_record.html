@@ -1,165 +1,229 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
-  <meta charset="UTF-8">
-  <title>Telemed App</title>
+    <meta charset="UTF-8">
+    <title>Telemed App</title>
 
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="../static/styles/style.css">
-  <link rel="shortcut icon" type="image/x-icon" href="../static/images/telemedicon.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../static/styles/style.css">
+    <link rel="shortcut icon" type="image/x-icon" href="../static/images/telemedicon.png"/>
 
-  <style>
-    /* Header style */
+    <style>
 
-        .header {
-             display: flex;
-             justify-content: space-between;
-             align-items: center;
-             padding: 10px 20px;
-             background-color: #ffffff;
-             border-bottom: 1px solid #ddd;
-         }
+        .footer {
+    background-color: #6c757d; /* Siva boja */
+    color: white; /* Bijeli tekst */
+    text-align: center; /* Centriranje teksta */
+    padding: 15px 0; /* Razmak unutar footera */
+    width: 100%; /* Proteže footer preko cijele širine */
+}
 
-         .header .user-card {
-             position: relative;
-             display: flex;
-             align-items: center;
-             gap: 10px;
-             cursor: pointer;
-             margin-left: auto;
-         }
+ html, body {
+    height: 100%;
+    margin: 0; /* Uklanja sve margine na tijelu i html-u */
+    padding: 0; /* Uklanja sve paddinge */
+    box-sizing: border-box; /* Osigurava da padding i margin ne utječu na dimenzije elemenata */
+}
 
-         .header .user-card img {
-             height: 40px;
-             border-radius: 50%;
-         }
+.main-content {
+    flex-grow: 1;
+    padding: 20px; /* Ako trebaš razmak unutar glavnog sadržaja */
+    margin: 0; /* Uklanja sve margine */
+}
 
-         /* User card menu style */
-         .header .user-card-menu {
-             display: none;
-             position: absolute;
-             top: 50px;
-             right: 0;
-             background-color: #ffffff;
-             border: 1px solid #ddd;
-             border-radius: 5px;
-             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-             z-index: 1000;
-             width: 150px;
-         }
+        /* Header style */
 
-         .header .user-card-menu a {
-             display: block;
-             padding: 10px 15px;
-             color: #000;
-             text-decoration: none;
-             white-space: nowrap;
-         }
+            .header {
+                 display: flex;
+                 justify-content: space-between;
+                 align-items: center;
+                 padding: 10px 20px;
+                 background-color: #ffffff;
+                 border-bottom: 1px solid #ddd;
+             }
 
-         .header .user-card-menu a:hover {
-             background-color: #f8f9fa;
-         }
+             .header .user-card {
+                 position: relative;
+                 display: flex;
+                 align-items: center;
+                 gap: 10px;
+                 cursor: pointer;
+                 margin-left: auto;
+             }
 
-         .header .logo {
-     display: flex;
-     align-items: center;
-     gap: 10px;
- }
+             .header .user-card img {
+                 height: 40px;
+                 border-radius: 50%;
+             }
 
- .header .logo img {
-     height: 80px;
-     width: auto;
- }
-        /* Dropdown menu styling */
-        .user-card-menu {
-            display: none;
-            position: absolute;
-            right: 0;
-            top: 100%;
-            background-color: #ffffff;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            border-radius: 5px;
-            padding: 10px;
-            z-index: 1000;
-        }
+             /* User card menu style */
+             .header .user-card-menu {
+                 display: none;
+                 position: absolute;
+                 top: 50px;
+                 right: 0;
+                 background-color: #ffffff;
+                 border: 1px solid #ddd;
+                 border-radius: 5px;
+                 box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+                 z-index: 1000;
+                 width: 150px;
+             }
 
-        .user-card:hover .user-card-menu {
-            display: block;
-        }
+             .header .user-card-menu a {
+                 display: block;
+                 padding: 10px 15px;
+                 color: #000;
+                 text-decoration: none;
+                 white-space: nowrap;
+             }
 
-        .user-card-menu a {
-            text-decoration: none;
-            color: black;  /* Promijenili smo boju u crnu */
-            font-size: 16px;
-            padding: 5px;
-            display: block;
-        }
+             .header .user-card-menu a:hover {
+                 background-color: #f8f9fa;
+             }
 
-        .user-card-menu a:hover {
-            background-color: #f1f1f1;
-        }
+             .header .logo {
+         display: flex;
+         align-items: center;
+         gap: 10px;
+     }
 
-  </style>
+     .header .logo img {
+         height: 80px;
+         width: auto;
+     }
+            /* Dropdown menu styling */
+            .user-card-menu {
+                display: none;
+                position: absolute;
+                right: 0;
+                top: 100%;
+                background-color: #ffffff;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+                border-radius: 5px;
+                padding: 10px;
+                z-index: 1000;
+            }
+
+
+
+            .user-card-menu a {
+                text-decoration: none;
+                color: black;  /* Promijenili smo boju u crnu */
+                font-size: 16px;
+                padding: 5px;
+                display: block;
+            }
+
+            .user-card-menu a:hover {
+                background-color: #f1f1f1;
+            }
+
+        @media (max-width: 768px) {
+    .main-content .form-group {
+        width: 100%;
+        padding: 0; /* Uklanja unutarnji razmak */
+    }
+
+    .row > .col-12 {
+        padding: 0; /* Uklanja margine između stupaca */
+    }
+
+    .main-content h2 {
+        text-align: center; /* Centriramo naslov na mobilnim uređajima */
+    }
+}
+
+
+
+    </style>
 
 </head>
 
-<body>
+<body class="d-flex flex-column" style="min-height: 100vh;">
 
 <!-- Header -->
 <div class="header">
-  <div class="logo">
-    <img src="/images/telemed.png" alt="Telemed Logo">
-  </div>
-
-  <div class="user-card" onclick="toggleUserMenu()">
-    <span th:text="${session.user.ime + ' ' + session.user.prezime }"></span>
-    <img src="/images/user.png" alt="User">
-    <div id="user-card-menu" class="user-card-menu">
-      <a href="/logout" class="mt-auto">Odjava</a>
+    <div class="logo">
+        <img src="/images/telemed.png" alt="Telemed Logo">
     </div>
-  </div>
+
+    <div class="user-card" onclick="toggleUserMenu()">
+        <span th:text="${session.user.ime + ' ' + session.user.prezime }"></span>
+        <img src="/images/user.png" alt="User">
+        <div id="user-card-menu" class="user-card-menu">
+            <a href="/logout" class="mt-auto">Odjava</a>
+        </div>
+    </div>
 </div>
 
-  <!-- Main Content -->
-  <div class="main-content">
-    <h2 class="mt-4">Novi zapis</h2> <br>
+<!-- Main Content -->
+<div class="main-content">
+    <h2>Novi zapis</h2> <br>
     <div class="row">
-      <div class="col-6">
-        <form action="/addNewStatus">
-          <div class="form-group pt-2">
-            <div>
-              <label for="tlak1">Sistolički tlak</label><br>
-              <input class="form-control mb-3 js-st" type="number" id="tlak1" placeholder="Unesite samo broj npr. 128" name="systolic">
-            </div>
-            <div>
-              <label for="tlak2">Dijastolički tlak</label><br>
-              <input class="form-control mb-3 js-dt" type="number" id="tlak2" placeholder="Unesite samo broj npr. 86" name="diastolic">
-            </div>
-            <div>
-              <label for="puls">Puls</label><br>
-              <input class="form-control mb-3 js-puls" type="number" id="puls" placeholder="Unesite samo broj npr. 70" name="pulse">
-            </div>
-            <div>
-              <label for="opis">Opis stanja</label><br>
-              <textarea class="form-control mb-3 js-opis" style="height: 90px;" type="text" id="opis" placeholder="Opišite kako se osjećate.." name="comment"></textarea>
-            </div>
-            <div>
-              <label for="date">Datum i vrijeme</label><br>
-              <input class="form-control mb-3 js-vrijeme" type="date" id="date" name="date"> <br>
-            </div>
-            <button class="btn btn-danger" onclick="location.href='/patientStatus'" type="button">Odustani</button>
-            <button class="btn btn-primary" name="toPatientsStatus" type="submit">Pošalji</button>
-          </div>
-        </form>
-      </div>
-      <div class="col-6 d-flex justify-content-center align-items-center">
-        <img src="/images/blood-pressure.jpg" class="img img-fluid shadow" style="width: auto; max-height: 550px;">
-      </div>
+        <div class="col-12 col-md-6">
+            <form action="/addNewStatus">
+                <div class="form-group pt-2">
+                    <div>
+                        <label for="tlak1">Sistolički tlak</label><br>
+                        <input class="form-control mb-3 js-st" type="number" id="tlak1"
+                               placeholder="Unesite samo broj npr. 128" name="systolic">
+                    </div>
+                    <div>
+                        <label for="tlak2">Dijastolički tlak</label><br>
+                        <input class="form-control mb-3 js-dt" type="number" id="tlak2"
+                               placeholder="Unesite samo broj npr. 86" name="diastolic">
+                    </div>
+                    <div>
+                        <label for="puls">Puls</label><br>
+                        <input class="form-control mb-3 js-puls" type="number" id="puls"
+                               placeholder="Unesite samo broj npr. 70" name="pulse">
+                    </div>
+                    <div>
+                        <label for="opis">Opis stanja</label><br>
+                        <textarea class="form-control mb-3 js-opis" style="height: 90px;" type="text" id="opis"
+                                  placeholder="Opišite kako se osjećate.." name="comment"></textarea>
+                    </div>
+                    <div>
+                        <label for="date">Datum i vrijeme</label><br>
+                        <input class="form-control mb-3 js-vrijeme" type="date" id="date" name="date"> <br>
+                    </div>
+                    <button class="btn btn-danger" onclick="location.href='/patientStatus'" type="button">Odustani
+                    </button>
+                    <button class="btn btn-primary" name="toPatientsStatus" type="submit">Pošalji</button>
+                </div>
+            </form>
+        </div>
+        <!-- Dodano d-none za sakrivanje slike na manjim uređajima -->
+        <div class="col-12 col-md-6 d-none d-md-flex justify-content-center align-items-center">
+            <img src="/images/blood-pressure.jpg"
+                 class="img img-fluid shadow"
+                 style="max-height: 550px;"
+                 alt="Blood Pressure">
+        </div>
     </div>
-  </div>
 </div>
+
+
+
+<footer class="footer">
+    <p>@2025 TELEMED SVA PRAVA PRIDRŽANA</p>
+</footer>
 <script src="scripts/new_record.js"></script>
+<script>
+    function toggleUserMenu() {
+      const menu = document.getElementById('user-card-menu');
+      menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
+    }
+
+    window.addEventListener('click', function (event) {
+      const menu = document.getElementById('user-card-menu');
+      if (!event.target.closest('.user-card')) {
+        menu.style.display = 'none';
+      }
+    });
+</script>
 </body>
 </html>
 

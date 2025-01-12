@@ -10,6 +10,28 @@
     <link rel="shortcut icon" type="image/x-icon" href="images/telemedicon.png"/>
 
     <style>
+
+        .footer {
+    background-color: #6c757d; /* Siva boja */
+    color: white; /* Bijeli tekst */
+    text-align: center; /* Centriranje teksta */
+    padding: 15px 0; /* Razmak unutar footera */
+    width: 100%; /* Proteže footer preko cijele širine */
+}
+
+ html, body {
+    height: 100%;
+    margin: 0; /* Uklanja sve margine na tijelu i html-u */
+    padding: 0; /* Uklanja sve paddinge */
+    box-sizing: border-box; /* Osigurava da padding i margin ne utječu na dimenzije elemenata */
+}
+
+.main-content {
+    flex-grow: 1;
+    padding: 20px; /* Ako trebaš razmak unutar glavnog sadržaja */
+    margin: 0; /* Uklanja sve margine */
+}
+
         /* Header style */
         .header {
             display: flex;
@@ -83,9 +105,7 @@
             z-index: 1000;
         }
 
-        .user-card:hover .user-card-menu {
-            display: block;
-        }
+
 
         .user-card-menu a {
             text-decoration: none;
@@ -101,7 +121,7 @@
     </style>
 </head>
 
-<body>
+<body class="d-flex flex-column" style="min-height: 100vh;">
 <!-- Header -->
 <div class="header">
     <div class="logo">
@@ -119,7 +139,7 @@
 
 <!-- Main Content -->
 <div class="main-content">
-    <h2 class="mt-4">Uredi korisnika</h2> <br>
+    <h2>Uredi korisnika</h2> <br>
     <div class="row">
         <div class="col-6">
             <form action="/editPatient">
@@ -159,14 +179,14 @@
                     <input th:value="${patient.adresa}" class="form-control mb-3 js-adresa" type="text" id="adresa"
                            placeholder="Unesite ulicu i kućni broj" name="adresa">
                 </div>
-                <div class="row mb-3">
+                <div class="row">
                     <div class="col-md-4">
                         <label>Poštanski broj</label><br>
                         <input th:value="${patient.pb}" class="form-control mb-3 js-pb" type="number" name="pb">
                     </div>
                     <div class="col-md-8">
                         <label for="grad">Grad</label><br>
-                        <input th:value="${patient.grad}" class="form-control mb-3 js-grad" type="text" id="grad"
+                        <input th:value="${patient.grad}" class="form-control js-grad" type="text" id="grad"
                                name="grad">
                     </div>
                 </div>
@@ -177,37 +197,59 @@
                            placeholder="0991234567 ili 044742584" name="kontakt">
                 </div>
                 <div class="col-6">
-                    <div>
-                        <label for="email">Email</label><br>
-                        <input th:value="${patient.email}" class="form-control mb-3 js-email" type="email"
-                               id="email" placeholder="adresa@adresa.com" name="email">
                     </div>
-                    <div>
-                        <label for="username">Korisničko ime</label><br>
-                        <input th:value="${patient.korisnickoIme}" class="form-control mb-3 js-username" type="text"
-                               id="username"
-                               placeholder="Korisničko ime za prijavu u aplikaciju" name="korisnickoIme">
-                    </div>
-                    <div>
-                        <label for="lozinka">Lozinka</label><br>
-                        <input th:value="${patient.lozinka}" class="form-control mb-3 js-lozinka" type="text"
-                               id="lozinka"
-                               placeholder="Lozinka za prijavu u aplikaciju" name="lozinka">
-                    </div>
-                    <input th:value="${patient.id}" name="id" type="hidden">
 
-                    <button class="btn btn-danger" onclick="location.href='/patientsDoctorView'" type="button">
-                        Odustani
-                    </button>
-                    <button class="btn btn-primary" name="toPatients" type="submit">Spremi</button>
-                </div>
-            </form>
         </div>
-        <div class="col-6 d-flex justify-content-center align-items-center">
-            <img src="images/blood-pressure.jpg" class="img img-fluid shadow" style="width: auto; max-height: 550px;">
+        <div class="col-6 justify-content-center">
+            <div>
+                <label for="email">Email</label><br>
+                <input th:value="${patient.email}" class="form-control mb-3 js-email" type="email"
+                       id="email" placeholder="adresa@adresa.com" name="email">
+            </div>
+            <div>
+                <label for="username">Korisničko ime</label><br>
+                <input th:value="${patient.korisnickoIme}" class="form-control mb-3 js-username" type="text"
+                       id="username"
+                       placeholder="Korisničko ime za prijavu u aplikaciju" name="korisnickoIme">
+            </div>
+            <div>
+                <label for="lozinka">Lozinka</label><br>
+                <input th:value="${patient.lozinka}" class="form-control mb-3 js-lozinka" type="text"
+                       id="lozinka"
+                       placeholder="Lozinka za prijavu u aplikaciju" name="lozinka">
+            </div>
+            <input th:value="${patient.id}" name="id" type="hidden" id="patient-id">
+
+            <button class="btn btn-danger" onclick="redirectToRecordsPage()" type="button">
+                Odustani
+            </button>
+            <button class="btn btn-primary" name="toPatients" type="submit">Spremi</button>
         </div>
+        </form>
     </div>
 </div>
+<footer class="footer">
+    <p>@2025 TELEMED SVA PRAVA PRIDRŽANA</p>
+</footer>
+<script>
+    function redirectToRecordsPage() {
+        const id = document.getElementById('patient-id').value;
+        location.href = '/showPatientRecords?id=' + id;
+    }
+
+    function toggleUserMenu() {
+        const menu = document.getElementById('user-card-menu');
+        menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
+    }
+
+    window.addEventListener('click', function (event) {
+        const menu = document.getElementById('user-card-menu');
+        if (!event.target.closest('.user-card')) {
+            menu.style.display = 'none'; // Sakrij izbornik ako klik nije na user-card
+        }
+    });
+</script>
+
 </body>
 
 </html>

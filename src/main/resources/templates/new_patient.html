@@ -6,9 +6,24 @@
     <title>Telemed App</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../static/styles/style.css">
-    <link rel="shortcut icon" type="image/x-icon" href="../static/images/telemedicon.png" />
+    <link rel="shortcut icon" type="image/x-icon" href="../static/images/telemedicon.png"/>
     <style>
         /* Header style */
+
+        .footer {
+    background-color: #6c757d; /* Siva boja */
+    color: white; /* Bijeli tekst */
+    text-align: center; /* Centriranje teksta */
+    padding: 15px 0; /* Razmak unutar footera */
+    width: 100%; /* Proteže footer preko cijele širine */
+}
+
+ html, body {
+    height: 100%;
+    margin: 0; /* Uklanja sve margine na tijelu i html-u */
+    padding: 0; /* Uklanja sve paddinge */
+    box-sizing: border-box; /* Osigurava da padding i margin ne utječu na dimenzije elemenata */
+}
 
        .header {
             display: flex;
@@ -70,11 +85,11 @@
     width: auto;
 }
 
-       /* Main content styling */
        .main-content {
-           margin-left: auto;
-           padding: 20px;
-       }
+    flex-grow: 1;
+    padding: 20px; /* Ako trebaš razmak unutar glavnog sadržaja */
+    margin: 0; /* Uklanja sve margine */
+}
 
        .main-content h2 {
            font-size: 24px;
@@ -83,7 +98,7 @@
     </style>
 </head>
 
-<body>
+<body class="d-flex flex-column" style="min-height: 100vh;">
 
 <!-- Header -->
 <div class="header">
@@ -102,23 +117,25 @@
 
 <!-- Main Content -->
 <div class="main-content">
-    <h2 class="mt-4">Unos novog korisnika</h2> <br>
-    <div class="row">
-        <!-- Left Column for Form -->
-        <div class="col-6">
-            <form action="/addNewPatient">
-
+    <h2>Unos novog korisnika</h2> <br>
+    <form action="/addNewPatient">
+        <div class="row">
+            <!-- Left Column for Form -->
+            <div class="col-6">
                 <div>
                     <label for="mb">Matični broj</label><br>
-                    <input class="form-control mb-3 js-mb" type="number" id="mb" name="mb" placeholder="Unesite matični broj pacijenta">
+                    <input class="form-control mb-3 js-mb" type="number" id="mb" name="mb"
+                           placeholder="Unesite matični broj pacijenta">
                 </div>
                 <div>
                     <label for="ime">Ime</label><br>
-                    <input class="form-control mb-3 js-ime" type="text" id="ime" placeholder="Unesite ime pacijenta" name="ime">
+                    <input class="form-control mb-3 js-ime" type="text" id="ime" placeholder="Unesite ime pacijenta"
+                           name="ime">
                 </div>
                 <div>
                     <label for="prezime">Prezime</label><br>
-                    <input class="form-control mb-3 js-prezime" type="text" id="prezime" placeholder="Unesite prezime pacijenta" name="prezime">
+                    <input class="form-control mb-3 js-prezime" type="text" id="prezime"
+                           placeholder="Unesite prezime pacijenta" name="prezime">
                 </div>
                 <div class="row mb-3">
                     <div class="col-md-4">
@@ -135,7 +152,8 @@
                 </div>
                 <div>
                     <label for="adresa">Adresa stanovanja</label><br>
-                    <input class="form-control mb-3 js-adresa" type="text" id="adresa" placeholder="Unesite ulicu i kućni broj" name="adresa">
+                    <input class="form-control mb-3 js-adresa" type="text" id="adresa"
+                           placeholder="Unesite ulicu i kućni broj" name="adresa">
                 </div>
                 <div class="row mb-3">
                     <div class="col-md-4">
@@ -149,34 +167,50 @@
                 </div>
                 <div>
                     <label for="kontakt">Mobitel/Telefon</label><br>
-                    <input class="form-control mb-3 js-kontakt" type="number" id="kontakt" placeholder="0991234567 ili 044742584" name="kontakt">
+                    <input class="form-control mb-3 js-kontakt" type="number" id="kontakt"
+                           placeholder="0991234567 ili 044742584" name="kontakt">
                 </div>
-
-                <div class="col-6">
-                    <div>
-                        <label for="email">Email</label><br>
-                        <input class="form-control mb-3 js-email" type="email" id="email" placeholder="adresa@adresa.com" name="email">
-                    </div>
-                    <div>
-                        <label for="username">Korisničko ime</label><br>
-                        <input class="form-control mb-3 js-username" type="text" id="username" placeholder="Korisničko ime za prijavu u aplikaciju" name="korisnickoIme">
-                    </div>
-                    <div>
-                        <label for="lozinka">Lozinka</label><br>
-                        <input class="form-control mb-3 js-lozinka" type="text" id="lozinka" placeholder="Lozinka za prijavu u aplikaciju" name="lozinka">
-                    </div>
-                    <button class="btn btn-danger" onclick="location.href='/patientsDoctorView'" type="button">Odustani</button>
-                    <button class="btn btn-primary" name="toPatients" type="submit">Dodaj</button>
+            </div>
+            <div class="col-6 justify-content-center">
+                <div>
+                    <label for="email">Email</label><br>
+                    <input class="form-control mb-3 js-email" type="email" id="email"
+                           placeholder="adresa@adresa.com" name="email">
                 </div>
-            </form>
+                <div>
+                    <label for="username">Korisničko ime</label><br>
+                    <input class="form-control mb-3 js-username" type="text" id="username"
+                           placeholder="Korisničko ime za prijavu u aplikaciju" name="korisnickoIme">
+                </div>
+                <div>
+                    <label for="lozinka">Lozinka</label><br>
+                    <input class="form-control mb-3 js-lozinka" type="text" id="lozinka"
+                           placeholder="Lozinka za prijavu u aplikaciju" name="lozinka">
+                </div>
+                <button class="btn btn-danger" onclick="location.href='/patientsDoctorView'" type="button">
+                    Odustani
+                </button>
+                <button class="btn btn-primary" name="toPatients" type="submit">Dodaj</button>
+            </div>
         </div>
-
-        <!-- Right Column for Image -->
-        <div class="col-6 d-flex justify-content-center align-items-center">
-            <img src="/images/blood-pressure.jpg" class="img img-fluid shadow" style="width: auto; max-height: 550px;">
-        </div>
-    </div>
 </div>
+</form>
+</div>
+<footer class="footer">
+    <p>@2025 TELEMED SVA PRAVA PRIDRŽANA</p>
+</footer>
+<script>
+    function toggleUserMenu() {
+      const menu = document.getElementById('user-card-menu');
+      menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
+    }
 
+    window.addEventListener('click', function (event) {
+      const menu = document.getElementById('user-card-menu');
+      if (!event.target.closest('.user-card')) {
+        menu.style.display = 'none';
+      }
+    });
+</script>
 </body>
 </html>

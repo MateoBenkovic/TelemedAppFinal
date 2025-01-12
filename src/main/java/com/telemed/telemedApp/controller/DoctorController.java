@@ -112,7 +112,7 @@ public class DoctorController {
 
         userRepositoryDB.save(patientToEdit);
 
-        return "redirect:/patientsDoctorView";
+        return "redirect:/showPatientRecords?id=" + id;
     }
 
 }
